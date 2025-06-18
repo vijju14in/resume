@@ -26,6 +26,8 @@
             --shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
             --hero-gradient-start: #667eea; /* Light mode gradient start */
             --hero-gradient-end: #764ba2;   /* Light mode gradient end */
+            --hero-text-on-gradient: #FFFFFF;
+            --hero-text-shadow: 0 1px 2px rgba(0,0,0,0.2);
         }
 
         [data-theme="dark"] {
@@ -37,6 +39,8 @@
             --shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
             --hero-gradient-start: #3a3eaa; /* Dark mode gradient start - darker shade */
             --hero-gradient-end: #5a2a82;   /* Dark mode gradient end - darker shade */
+            --hero-text-on-gradient: #f9fafb;
+            --hero-text-shadow: 0 1px 2px rgba(0,0,0,0.5);
         }
 
         body {
@@ -174,12 +178,16 @@
 
         .hero-subtitle {
             font-size: 1.5rem;
-            color: var(--text-secondary);
+            /* color: var(--text-secondary); */ /* Overridden by new variable */
+            color: var(--hero-text-on-gradient);
+            text-shadow: var(--hero-text-shadow);
             margin-bottom: 2rem;
         }
 
         .hero-description {
             font-size: 1.1rem;
+            color: var(--hero-text-on-gradient);
+            text-shadow: var(--hero-text-shadow);
             margin-bottom: 2rem;
             line-height: 1.8;
         }
@@ -498,7 +506,7 @@
 
         .tech-tag {
             background: var(--accent-color);
-            color: white;
+            color: #1f2937; /* Dark text for better contrast on amber */
             padding: 0.25rem 0.5rem;
             border-radius: 15px;
             font-size: 0.8rem;

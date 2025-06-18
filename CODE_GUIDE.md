@@ -36,6 +36,7 @@ const CONFIG = {
      - `linkedin`: Full URL to your LinkedIn profile.
      - `github`: Full URL to your GitHub profile.
      - `description`: A short bio for the hero section.
+     - `profilePhotoUrl`: Path or URL to your profile photo (e.g., "assets/images/profile.jpg"). See "Adding Your Profile Photo" section for details.
    - **To Update:** Directly edit the string values for these fields.
 
 ### 2. `about`
@@ -46,10 +47,11 @@ const CONFIG = {
 
 ### 3. `skills`
    - Organizes your skills into categories.
-   - **Structure:** An object where each key is a skill category (e.g., "Programming Languages") and its value is an array of skill strings (e.g., `["Python", "JavaScript"]`).
+   - **Structure:** An object where each key is a skill category (e.g., "Programming Languages") and its value is an array of skill strings (e.g., `["Python", "JavaScript"]`). The structure has been updated to support skill levels for a bar display: `[{ name: "Python", level: "95%" }, ...]`.
    - **To Update:**
-     - To add a new category: Add a new key-value pair.
-     - To add a skill: Add the skill string to the appropriate category's array.
+     - Update skill names and their `level` percentages.
+     - To add a new category: Add a new key-value pair using the new object structure for skills.
+     - To add a skill: Add a new object `{ name: "Skill Name", level: "Percentage" }` to the appropriate category's array.
      - The icon next to the skill category is determined by the `getSkillIcon(category)` function. You might need to update this function if adding new categories that need specific icons.
 
 ### 4. `experience`
@@ -71,6 +73,43 @@ const CONFIG = {
      - `github`: (This property was previously used for GitHub links but is currently not rendered on the site. You can still store the URL here for your reference if desired).
      - `demo`: URL to a live demo if available. Set to `null` or an empty string if no demo.
    - **To Update:** Add new project objects or modify existing ones.
+
+### Adding Your Profile Photo
+
+The website is set up to display a profile photo in the hero section. Here's how to add or change it:
+
+The photo is controlled by the `profilePhotoUrl` property within the `CONFIG.personal` object in `index.html`.
+
+**1. Update `CONFIG.personal`:**
+
+   In `index.html`, locate the `CONFIG.personal` object and add or update the `profilePhotoUrl` property:
+
+   ```javascript
+   personal: {
+       name: "Your Name",
+       title: "Your Title",
+       // ... other personal details
+       profilePhotoUrl: "assets/images/your-photo.jpg" // Or a direct URL
+   },
+   ```
+
+**2. Choose your photo source:**
+
+   *   **Option A: Using a Local Image (Recommended for reliability)**
+       1.  Create a folder named `assets` in the same directory as your `index.html` if it doesn't exist. Inside `assets`, create another folder named `images`.
+       2.  Place your desired profile photo (e.g., `your-photo.jpg`, `profile.png`) into the `assets/images/` folder.
+       3.  Update the `profilePhotoUrl` in `CONFIG.personal` to reflect this path, for example: `"assets/images/your-photo.jpg"`.
+       4.  **Important:** Ensure the image file is committed and pushed with your repository changes and deployed with your website.
+
+   *   **Option B: Using a Web URL**
+       1.  If your photo is hosted online (e.g., a direct link to a photo from your LinkedIn, GitHub, or another image hosting service), you can use its full URL.
+       2.  Update the `profilePhotoUrl` in `CONFIG.personal` to this URL, for example: `"https://example.com/path/to/your/online-photo.jpg"`.
+       3.  **Note:** Ensure the URL is a direct link to the image file itself (ending in .jpg, .png, .gif, etc.), not just a link to a profile page. Also, be aware that if the image is removed or its URL changes from the source, it will break on your website. Using a local image is generally more reliable.
+
+**Image Recommendations:**
+*   **Aspect Ratio:** A square image (1:1 aspect ratio) will work best with the default circular styling.
+*   **Format:** Use common web formats like JPG, PNG, or WEBP.
+*   **Size:** Aim for an optimized image, perhaps around 500x500 pixels to 800x800 pixels. The display size is controlled by CSS (defaulting to 300x300px), so a very large image isn't necessary.
 
 ## Rendering Functions
 
