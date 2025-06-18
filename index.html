@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nilay - Senior Python Developer</title>
+    <meta name="description" content="Portfolio of Nilay, a Senior Python Developer & Full-Stack Engineer specializing in scalable applications, financial services, and cybersecurity automation.">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         * {
@@ -709,7 +711,7 @@
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
-            <p>&copy; 2025 Nilay. All rights reserved. Built with ❤️ using HTML, CSS & JavaScript</p>
+            <p>&copy; <span id="currentYear">2025</span> Nilay. All rights reserved. Built with ❤️ using HTML, CSS & JavaScript</p>
         </div>
     </footer>
 
@@ -806,7 +808,6 @@
                     subtitle: "Bank of America - Cybersecurity SOAR",
                     description: "Comprehensive cybersecurity automation platform reducing incident response time by 60% and processing 1000+ security events daily.",
                     technologies: ["Python", "Splunk SOAR", "React.js", "TypeScript"],
-                    github: "https://github.com/your-username/security-automation", // ADD YOUR GITHUB REPO
                     demo: null // Set to URL if you have a live demo
                 },
                 {
@@ -814,7 +815,6 @@
                     subtitle: "Bank of America - Trading Platform",
                     description: "Scalable margin calculation system handling $100M+ daily transactions with real-time processing capabilities.",
                     technologies: ["Python", "Quartz Framework", "DAG Processing", "Real-time APIs"],
-                    github: "https://github.com/your-username/financial-risk", // ADD YOUR GITHUB REPO
                     demo: null
                 },
                 {
@@ -822,15 +822,13 @@
                     subtitle: "Associated Bank - Customer Portal",
                     description: "Full-stack React/Django application serving 10,000+ active users with 99.9% uptime and modern UX.",
                     technologies: ["React.js", "Django", "AWS", "PostgreSQL"],
-                    github: "https://github.com/your-username/digital-banking", // ADD YOUR GITHUB REPO
-                    demo: "https://your-demo-url.com" // ADD DEMO URL IF AVAILABLE
+                    demo: null // ADD DEMO URL IF AVAILABLE
                 },
                 {
                     title: "Insurance Claims System",
                     subtitle: "Combined Insurance - Automation Platform",
                     description: "Automated claims processing system reducing processing time by 70% with intelligent workflow management.",
                     technologies: ["Python", "Django", "Multithreading", "Data Processing"],
-                    github: "https://github.com/your-username/insurance-claims", // ADD YOUR GITHUB REPO
                     demo: null
                 }
             ]
@@ -1058,6 +1056,7 @@
                                         <i class="fas fa-paper-plane"></i>
                                         Send Message
                                     </button>
+                                    <div id="formFeedback" style="margin-top: 1rem; text-align: center;"></div>
                                 </form>
                             </div>
                         </div>
@@ -1123,8 +1122,8 @@
                                 <span>📧 ${CONFIG.personal.email}</span>
                                 <span>📱 ${CONFIG.personal.phone}</span>
                                 <span>📍 ${CONFIG.personal.location}</span>
-                                <span>💼 LinkedIn Profile</span>
-                                <span>🔗 GitHub Profile</span>
+                                <span>💼 LinkedIn: ${CONFIG.personal.linkedin}</span>
+                                <span>🔗 GitHub: ${CONFIG.personal.github}</span>
                             </div>
                         </div>
                         
@@ -1432,12 +1431,19 @@
 
             document.getElementById('contactForm').addEventListener('submit', function(e) {
                 e.preventDefault();
+                document.getElementById('formFeedback').textContent = ''; // Clear previous feedback
 
-                    emailjs.sendForm('service_wqqye6a', 'template_krk8xst', event.target, '0w-ctlVVYZ12OWHVZ')
+                    emailjs.sendForm('service_wqqye6a', 'template_krk8xst', this)
                     .then((result) => {
                         console.log('SUCCESS!', result.status, result.text);
+                        const feedbackDiv = document.getElementById('formFeedback');
+                        feedbackDiv.textContent = 'Message sent successfully!';
+                        feedbackDiv.style.color = 'green';
                     }, (error) => {
                         console.log('FAILED...', error);
+                        const feedbackDiv = document.getElementById('formFeedback');
+                        feedbackDiv.textContent = 'Failed to send message. Please try again later.';
+                        feedbackDiv.style.color = 'red';
                     });
 
                 this.reset();
@@ -1457,6 +1463,9 @@
                     tech.style.color = 'var(--text-primary)';
                 });
             });
+
+            // Set current year in footer
+            document.getElementById('currentYear').textContent = new Date().getFullYear();
         }
 
         // Initialize website when DOM is loaded
