@@ -76,28 +76,28 @@ const CONFIG = {
 
 ### Adding Your Profile Photo
 
-The website is set up to display a profile photo in the hero section. Here's how to add or change it:
+The website is set up to display a profile photo within the "About Me" section. Here's how to add or change it:
 
 The photo is controlled by the `profilePhotoUrl` property within the `CONFIG.personal` object in `index.html`.
 
 **1. Update `CONFIG.personal`:**
 
-   In `index.html`, locate the `CONFIG.personal` object and add or update the `profilePhotoUrl` property:
+   In `index.html`, locate the `CONFIG.personal` object and ensure the `profilePhotoUrl` property is present and correctly set:
 
    ```javascript
    personal: {
        name: "Your Name",
        title: "Your Title",
        // ... other personal details
-       profilePhotoUrl: "assets/images/your-photo.jpg" // Or a direct URL
+       profilePhotoUrl: "assets/images/your-photo.jpg" // Or a direct URL to your photo
    },
    ```
 
 **2. Choose your photo source:**
 
    *   **Option A: Using a Local Image (Recommended for reliability)**
-       1.  Create a folder named `assets` in the same directory as your `index.html` if it doesn't exist. Inside `assets`, create another folder named `images`.
-       2.  Place your desired profile photo (e.g., `your-photo.jpg`, `profile.png`) into the `assets/images/` folder.
+       1.  It's good practice to create a folder structure like `assets/images/` in the same directory as your `index.html`.
+       2.  Place your desired profile photo (e.g., `your-photo.jpg`, `profile.png`) into this `assets/images/` folder.
        3.  Update the `profilePhotoUrl` in `CONFIG.personal` to reflect this path, for example: `"assets/images/your-photo.jpg"`.
        4.  **Important:** Ensure the image file is committed and pushed with your repository changes and deployed with your website.
 
@@ -107,9 +107,9 @@ The photo is controlled by the `profilePhotoUrl` property within the `CONFIG.per
        3.  **Note:** Ensure the URL is a direct link to the image file itself (ending in .jpg, .png, .gif, etc.), not just a link to a profile page. Also, be aware that if the image is removed or its URL changes from the source, it will break on your website. Using a local image is generally more reliable.
 
 **Image Recommendations:**
-*   **Aspect Ratio:** A square image (1:1 aspect ratio) will work best with the default circular styling.
+*   **Aspect Ratio:** A square image (1:1 aspect ratio) will work best with the default circular styling in the "About Me" section.
 *   **Format:** Use common web formats like JPG, PNG, or WEBP.
-*   **Size:** Aim for an optimized image, perhaps around 500x500 pixels to 800x800 pixels. The display size is controlled by CSS (defaulting to 300x300px), so a very large image isn't necessary.
+*   **Size:** Aim for an optimized image, perhaps around 500x500 pixels. The display size is controlled by CSS (defaulting to around 250x250px in the 'About Me' section), so a very large image isn't necessary.
 
 ## Rendering Functions
 

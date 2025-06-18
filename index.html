@@ -287,6 +287,14 @@
             font-weight: 600;
             animation: float 3s ease-in-out infinite;
             box-shadow: var(--shadow);
+            text-decoration: none;
+            color: var(--text-primary); /* Ensure link color matches theme text */
+        }
+
+        .floating-tech:hover {
+            transform: scale(1.1) translateY(-5px);
+            background: var(--primary-color);
+            color: white;
         }
 
         .floating-tech:nth-child(1) { top: 10%; left: 10%; animation-delay: 0s; }
@@ -678,6 +686,26 @@
             .timeline-marker {
                 left: 0.5rem;
             }
+
+            /* Responsive adjustments for About Me section */
+            .about-content-wrapper {
+                flex-direction: column; /* Stack photo and text */
+                align-items: center; /* Center items when stacked */
+                gap: 2rem;
+            }
+
+            .about-photo-container {
+                margin-bottom: 0; /* Remove bottom margin if stacked */
+            }
+
+            .about-profile-photo {
+                width: 200px;
+                height: 200px;
+            }
+
+            .about-text-container {
+                text-align: center; /* Justify text or center for stacked layout */
+            }
         }
 
         /* Scroll Progress Bar */
@@ -753,6 +781,45 @@
                 border-right-color: transparent;
             }
         }
+
+        /* About Me Section - Photo and Layout */
+        .about-content-wrapper {
+            display: flex;
+            flex-wrap: wrap; /* Allow wrapping on smaller screens */
+            align-items: flex-start; /* Align items to the top */
+            gap: 3rem; /* Space between photo and text */
+            max-width: 1000px; /* Or adjust as needed */
+            margin: 0 auto; /* Center the wrapper */
+        }
+
+        .about-photo-container {
+            flex: 1 1 250px; /* Flex properties: grow, shrink, basis */
+            display: flex;
+            justify-content: center; /* Center photo if container is wider */
+        }
+
+        .about-profile-photo {
+            width: 250px; /* Desired width */
+            height: 250px; /* Desired height */
+            border-radius: 50%; /* Circular photo */
+            object-fit: cover; /* Crop to fit, maintain aspect ratio */
+            border: 4px solid var(--border-color);
+            box-shadow: var(--shadow);
+        }
+
+        .about-text-container {
+            flex: 2 1 500px; /* Text container takes more space */
+            font-size: 1.1rem; /* Existing font size */
+            line-height: 1.8; /* Existing line height */
+            text-align: left; /* Override any centered text from parent if needed */
+        }
+
+        .about-text-container p {
+            margin-bottom: 1rem; /* Space between paragraphs */
+        }
+        .about-text-container p:last-child {
+            margin-bottom: 0;
+        }
     </style>
 </head>
 <body>
@@ -813,7 +880,7 @@
                 linkedin: "https://linkedin.com/in/nilay6317", 
                 github: "https://github.com/vijju14in", 
                 description: "Passionate about building scalable applications with 8+ years of experience in Python, React, and cloud technologies. Specialized in financial services, cybersecurity automation, and data-driven solutions.",
-                profilePhotoUrl: "assets/images/your-photo.jpg"
+                profilePhotoUrl: "assets/images/placeholder-avatar.png" // Added new property
             },
             
             about: {
@@ -985,10 +1052,10 @@
                         </div>
                         <div class="hero-image">
                             <div class="floating-elements">
-                                <div class="floating-tech">Python</div>
-                                <div class="floating-tech">React</div>
-                                <div class="floating-tech">Django</div>
-                                <div class="floating-tech">AWS</div>
+                                <a href="https://www.python.org" target="_blank" rel="noopener noreferrer" class="floating-tech">Python</a>
+                                <a href="https://reactjs.org" target="_blank" rel="noopener noreferrer" class="floating-tech">React</a>
+                                <a href="https://www.djangoproject.com" target="_blank" rel="noopener noreferrer" class="floating-tech">Django</a>
+                                <a href="https://aws.amazon.com" target="_blank" rel="noopener noreferrer" class="floating-tech">AWS</a>
                             </div>
                         </div>
                     </div>
@@ -1001,12 +1068,19 @@
          * @returns {string} HTML string for the About Me section.
          */
         function renderAbout() {
+            const aboutTextHtml = CONFIG.about.text.map(paragraph => `<p>${paragraph}</p>`).join('');
+
             return `
                 <section id="about" class="section">
                     <div class="container">
                         <h2 class="section-title">About Me</h2>
-                        <div style="max-width: 800px; margin: 0 auto; text-align: center; font-size: 1.1rem; line-height: 1.8;">
-                            ${CONFIG.about.text.map(paragraph => `<p>${paragraph}</p>`).join('<br>')}
+                        <div class="about-content-wrapper">
+                            <div class="about-photo-container">
+                                <img src="${CONFIG.personal.profilePhotoUrl || 'assets/images/placeholder-avatar.png'}" alt="Photo of ${CONFIG.personal.name}" class="about-profile-photo">
+                            </div>
+                            <div class="about-text-container">
+                                ${aboutTextHtml}
+                            </div>
                         </div>
                     </div>
                 </section>
