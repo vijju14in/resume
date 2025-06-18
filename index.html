@@ -1113,8 +1113,6 @@
             return icons[category] || "code";
         }
 
-        }
-
         /**
          * 📄 PDF GENERATION FUNCTION
          * Generates the HTML content for the resume PDF and opens it in a new window for printing.
@@ -1234,8 +1232,6 @@
             setTimeout(() => {
                 printWindow.print();
             }, 500);
-        }
-
         }
 
         /**
@@ -1387,7 +1383,7 @@
             const resumeHTML = generateResumeHTML(); // Ensure this function is defined
             const blob = new Blob([resumeHTML], { type: 'text/html' });
             const url = URL.createObjectURL(blob);
-            
+
             const a = document.createElement('a');
             a.href = url;
             a.download = `${CONFIG.personal.name}_Resume.html`;
@@ -1395,145 +1391,6 @@
             a.click();
             document.body.removeChild(a);
             URL.revokeObjectURL(url);
-        }
-
-        function generateResumeHTML() {
-            return `<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>${CONFIG.personal.name} - Resume</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: Arial, sans-serif; font-size: 11pt; line-height: 1.4; color: #333; background: white; }
-        .resume { max-width: 8.5in; margin: 0 auto; padding: 0.5in; }
-        .header { text-align: center; margin-bottom: 0.3in; border-bottom: 3px solid #2563eb; padding-bottom: 0.2in; }
-        .name { font-size: 28pt; font-weight: bold; color: #2563eb; margin-bottom: 0.1in; }
-        .title { font-size: 14pt; color: #666; margin-bottom: 0.15in; }
-        .contact-info { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; font-size: 10pt; }
-        .section { margin-bottom: 0.25in; }
-        .section-title { font-size: 14pt; font-weight: bold; color: #2563eb; margin-bottom: 0.1in; 
-                         border-bottom: 1px solid #ddd; padding-bottom: 0.05in; text-transform: uppercase; }
-        .summary { text-align: justify; line-height: 1.5; margin-bottom: 0.15in; }
-        .skills-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.15in; }
-        .skill-category { margin-bottom: 0.1in; }
-        .skill-category-title { font-weight: bold; font-size: 10pt; margin-bottom: 0.05in; }
-        .skill-list { font-size: 9pt; color: #555; }
-        .job { margin-bottom: 0.2in; }
-        .job-header { display: flex; justify-content: space-between; margin-bottom: 0.05in; }
-        .job-title { font-weight: bold; color: #2563eb; font-size: 12pt; }
-        .company { font-weight: 600; font-size: 11pt; }
-        .duration { font-size: 9pt; color: #666; font-style: italic; }
-        .achievements { list-style: none; margin-top: 0.05in; }
-        .achievements li { padding-left: 0.15in; margin-bottom: 0.03in; font-size: 10pt; position: relative; }
-        .achievements li::before { content: '•'; position: absolute; left: 0; color: #2563eb; font-weight: bold; }
-        .project { margin-bottom: 0.15in; }
-        .project-title { font-weight: bold; color: #2563eb; font-size: 11pt; }
-        .project-subtitle { font-size: 9pt; color: #666; font-style: italic; }
-        .project-description { font-size: 10pt; margin: 0.05in 0; }
-        .tech-stack { font-size: 9pt; color: #555; }
-        @media print {
-            body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-            .resume { margin: 0; padding: 0.5in; }
-        }
-        @page { size: letter; margin: 0.5in; }
-    </style>
-</head>
-<body>
-    <div class="resume">
-        <div class="header">
-            <h1 class="name">${CONFIG.personal.name.toUpperCase()}</h1>
-            <p class="title">${CONFIG.personal.title}</p>
-            <div class="contact-info">
-                <span>📧 ${CONFIG.personal.email}</span>
-                <span>📱 ${CONFIG.personal.phone}</span>
-                <span>📍 ${CONFIG.personal.location}</span>
-                <span>💼 LinkedIn: ${CONFIG.personal.linkedin}</span>
-                <span>🔗 GitHub: ${CONFIG.personal.github}</span>
-            </div>
-        </div>
-        
-        <div class="section">
-            <h2 class="section-title">Professional Summary</h2>
-            <div class="summary">${CONFIG.about.text[0]}</div>
-        </div>
-        
-        <div class="section">
-            <h2 class="section-title">Technical Skills</h2>
-            <div class="skills-grid">
-                ${Object.entries(CONFIG.skills).map(([category, skills]) => `
-                    <div class="skill-category">
-                        <div class="skill-category-title">${category}:</div>
-                        <div class="skill-list">${skills.join(', ')}</div>
-                    </div>
-                `).join('')}
-            </div>
-        </div>
-        
-        <div class="section">
-            <h2 class="section-title">Professional Experience</h2>
-            ${CONFIG.experience.map(job => `
-                <div class="job">
-                    <div class="job-header">
-                        <div>
-                            <div class="job-title">${job.title}</div>
-                            <div class="company">${job.company}</div>
-                        </div>
-                        <div class="duration">${job.duration}</div>
-                    </div>
-                    <ul class="achievements">
-                        ${job.achievements.map(achievement => `<li>${achievement}</li>`).join('')}
-                    </ul>
-                </div>
-            `).join('')}
-        </div>
-        
-        <div class="section">
-            <h2 class="section-title">Key Projects</h2>
-            ${CONFIG.projects.slice(0, 3).map(project => `
-                <div class="project">
-                    <div class="project-title">${project.title}</div>
-                    <div class="project-subtitle">${project.subtitle}</div>
-                    <div class="project-description">${project.description}</div>
-                    <div class="tech-stack">Technologies: ${project.technologies.join(', ')}</div>
-                </div>
-            `).join('')}
-        </div>
-        
-        <div class="section">
-            <h2 class="section-title">Education</h2>
-            <div style="font-size: 10pt;">
-                <strong>Bachelor of Engineering in Electronics & Telecommunications</strong><br>
-                Pune University | 2006-2010 | Distinction
-            </div>
-        </div>
-        
-        <div class="section">
-            <h2 class="section-title">Certifications</h2>
-            <ul style="list-style: none; font-size: 10pt;">
-                <li style="position: relative; padding-left: 0.15in; margin-bottom: 0.03in;">
-                    <span style="position: absolute; left: 0; color: #2563eb;">✓</span>
-                    AWS Certified Solutions Architect (In Progress)
-                </li>
-                <li style="position: relative; padding-left: 0.15in; margin-bottom: 0.03in;">
-                    <span style="position: absolute; left: 0; color: #2563eb;">✓</span>
-                    Certified Scrum Master (CSM)
-                </li>
-                <li style="position: relative; padding-left: 0.15in; margin-bottom: 0.03in;">
-                    <span style="position: absolute; left: 0; color: #2563eb;">✓</span>
-                    Advanced Python Programming
-                </li>
-                <li style="position: relative; padding-left: 0.15in; margin-bottom: 0.03in;">
-                    <span style="position: absolute; left: 0; color: #2563eb;">✓</span>
-                    React.js Certification
-                </li>
-            </ul>
-        </div>
-    </div>
-</body>
-</html>`;
-        }
-
         }
 
         // 🚀 INITIALIZATION FUNCTIONS
