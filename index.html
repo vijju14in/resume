@@ -726,7 +726,9 @@
    })();
 </script>
     <script>
-        // 🔧 CONFIGURATION - Edit this section to update content
+        // 🔧 CONFIGURATION
+        // Holds all personal data, content, and settings for the portfolio.
+        // Edit this section to update website content.
         const CONFIG = {
             personal: {
                 name: "Nilay",
@@ -834,7 +836,14 @@
             ]
         };
 
-        // 🎨 RENDERING FUNCTIONS - Don't modify unless you want to change the layout
+        // 🎨 RENDERING FUNCTIONS
+        // These functions generate the HTML for different sections of the page.
+        // Avoid modifying these unless you intend to change the website's layout.
+
+        /**
+         * Renders the Hero section.
+         * @returns {string} HTML string for the Hero section.
+         */
         function renderHero() {
             return `
                 <section id="home" class="hero">
@@ -871,6 +880,10 @@
             `;
         }
 
+        /**
+         * Renders the About Me section.
+         * @returns {string} HTML string for the About Me section.
+         */
         function renderAbout() {
             return `
                 <section id="about" class="section">
@@ -884,6 +897,10 @@
             `;
         }
 
+        /**
+         * Renders the Technical Skills section.
+         * @returns {string} HTML string for the Skills section.
+         */
         function renderSkills() {
             const skillsGrid = Object.entries(CONFIG.skills).map(([category, skills]) => `
                 <div class="skill-category">
@@ -906,6 +923,10 @@
             `;
         }
 
+        /**
+         * Renders the Professional Experience section.
+         * @returns {string} HTML string for the Experience section.
+         */
         function renderExperience() {
             const timeline = CONFIG.experience.map((job, index) => `
                 <div class="timeline-item">
@@ -933,6 +954,10 @@
             `;
         }
 
+        /**
+         * Renders the Featured Projects section.
+         * @returns {string} HTML string for the Projects section.
+         */
         function renderProjects() {
             const projectsGrid = CONFIG.projects.map(project => `
                 <div class="project-card">
@@ -969,6 +994,10 @@
             `;
         }
 
+        /**
+         * Renders the Contact Me section.
+         * @returns {string} HTML string for the Contact section.
+         */
         function renderContact() {
             return `
                 <section id="contact" class="section">
@@ -1038,19 +1067,19 @@
                                 <form id="contactForm">
                                     <div class="form-group">
                                         <label for="name">Name</label>
-                                        <input type="text" id="name" class="form-control" required>
+                                        <input type="text" id="name" name="name" class="form-control" required>
                                     </div>
                                     <div class="form-group">
                                         <label for="email">Email</label>
-                                        <input type="email" id="email" class="form-control" required>
+                                        <input type="email" id="email" name="email" class="form-control" required>
                                     </div>
                                     <div class="form-group">
                                         <label for="subject">Subject</label>
-                                        <input type="text" id="subject" class="form-control" required>
+                                        <input type="text" id="subject" name="subject" class="form-control" required>
                                     </div>
                                     <div class="form-group">
                                         <label for="message">Message</label>
-                                        <textarea id="message" class="form-control" required></textarea>
+                                        <textarea id="message" name="message" class="form-control" required></textarea>
                                     </div>
                                     <button type="submit" class="btn btn-primary" style="width: 100%;">
                                         <i class="fas fa-paper-plane"></i>
@@ -1065,7 +1094,13 @@
             `;
         }
 
-        // Helper function for skill icons
+        // 🛠️ HELPER FUNCTIONS
+
+        /**
+         * Returns an appropriate Font Awesome icon class based on the skill category.
+         * @param {string} category - The skill category.
+         * @returns {string} A Font Awesome icon class string.
+         */
         function getSkillIcon(category) {
             const icons = {
                 "Programming Languages": "code",
@@ -1078,7 +1113,12 @@
             return icons[category] || "code";
         }
 
-        // 📄 PDF GENERATION FUNCTION
+        }
+
+        /**
+         * 📄 PDF GENERATION FUNCTION
+         * Generates the HTML content for the resume PDF and opens it in a new window for printing.
+         */
         function generatePDF() {
             // Create PDF content based on CONFIG data
             const pdfContent = `
@@ -1196,9 +1236,155 @@
             }, 500);
         }
 
-        // Alternative: Download as HTML file (user can convert to PDF)
+        }
+
+        /**
+         * Generates an HTML string of the resume.
+         * This is used by `downloadResumeHTML` and could be adapted for other uses.
+         * @returns {string} HTML string representing the resume.
+         */
+        function generateResumeHTML() {
+            return `<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>${CONFIG.personal.name} - Resume</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; font-size: 11pt; line-height: 1.4; color: #333; background: white; }
+        .resume { max-width: 8.5in; margin: 0 auto; padding: 0.5in; }
+        .header { text-align: center; margin-bottom: 0.3in; border-bottom: 3px solid #2563eb; padding-bottom: 0.2in; }
+        .name { font-size: 28pt; font-weight: bold; color: #2563eb; margin-bottom: 0.1in; }
+        .title { font-size: 14pt; color: #666; margin-bottom: 0.15in; }
+        .contact-info { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; font-size: 10pt; }
+        .section { margin-bottom: 0.25in; }
+        .section-title { font-size: 14pt; font-weight: bold; color: #2563eb; margin-bottom: 0.1in;
+                         border-bottom: 1px solid #ddd; padding-bottom: 0.05in; text-transform: uppercase; }
+        .summary { text-align: justify; line-height: 1.5; margin-bottom: 0.15in; }
+        .skills-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.15in; }
+        .skill-category { margin-bottom: 0.1in; }
+        .skill-category-title { font-weight: bold; font-size: 10pt; margin-bottom: 0.05in; }
+        .skill-list { font-size: 9pt; color: #555; }
+        .job { margin-bottom: 0.2in; }
+        .job-header { display: flex; justify-content: space-between; margin-bottom: 0.05in; }
+        .job-title { font-weight: bold; color: #2563eb; font-size: 12pt; }
+        .company { font-weight: 600; font-size: 11pt; }
+        .duration { font-size: 9pt; color: #666; font-style: italic; }
+        .achievements { list-style: none; margin-top: 0.05in; }
+        .achievements li { padding-left: 0.15in; margin-bottom: 0.03in; font-size: 10pt; position: relative; }
+        .achievements li::before { content: '•'; position: absolute; left: 0; color: #2563eb; font-weight: bold; }
+        .project { margin-bottom: 0.15in; }
+        .project-title { font-weight: bold; color: #2563eb; font-size: 11pt; }
+        .project-subtitle { font-size: 9pt; color: #666; font-style: italic; }
+        .project-description { font-size: 10pt; margin: 0.05in 0; }
+        .tech-stack { font-size: 9pt; color: #555; }
+        @media print {
+            body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            .resume { margin: 0; padding: 0.5in; }
+        }
+        @page { size: letter; margin: 0.5in; }
+    </style>
+</head>
+<body>
+    <div class="resume">
+        <div class="header">
+            <h1 class="name">${CONFIG.personal.name.toUpperCase()}</h1>
+            <p class="title">${CONFIG.personal.title}</p>
+            <div class="contact-info">
+                <span>📧 ${CONFIG.personal.email}</span>
+                <span>📱 ${CONFIG.personal.phone}</span>
+                <span>📍 ${CONFIG.personal.location}</span>
+                <span>💼 LinkedIn: ${CONFIG.personal.linkedin}</span>
+                <span>🔗 GitHub: ${CONFIG.personal.github}</span>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">Professional Summary</h2>
+            <div class="summary">${CONFIG.about.text[0]}</div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">Technical Skills</h2>
+            <div class="skills-grid">
+                ${Object.entries(CONFIG.skills).map(([category, skills]) => `
+                    <div class="skill-category">
+                        <div class="skill-category-title">${category}:</div>
+                        <div class="skill-list">${skills.join(', ')}</div>
+                    </div>
+                `).join('')}
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">Professional Experience</h2>
+            ${CONFIG.experience.map(job => `
+                <div class="job">
+                    <div class="job-header">
+                        <div>
+                            <div class="job-title">${job.title}</div>
+                            <div class="company">${job.company}</div>
+                        </div>
+                        <div class="duration">${job.duration}</div>
+                    </div>
+                    <ul class="achievements">
+                        ${job.achievements.map(achievement => `<li>${achievement}</li>`).join('')}
+                    </ul>
+                </div>
+            `).join('')}
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">Key Projects</h2>
+            ${CONFIG.projects.slice(0, 3).map(project => `
+                <div class="project">
+                    <div class="project-title">${project.title}</div>
+                    <div class="project-subtitle">${project.subtitle}</div>
+                    <div class="project-description">${project.description}</div>
+                    <div class="tech-stack">Technologies: ${project.technologies.join(', ')}</div>
+                </div>
+            `).join('')}
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">Education</h2>
+            <div style="font-size: 10pt;">
+                <strong>Bachelor of Engineering in Electronics & Telecommunications</strong><br>
+                Pune University | 2006-2010 | Distinction
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">Certifications</h2>
+            <ul style="list-style: none; font-size: 10pt;">
+                <li style="position: relative; padding-left: 0.15in; margin-bottom: 0.03in;">
+                    <span style="position: absolute; left: 0; color: #2563eb;">✓</span>
+                    AWS Certified Solutions Architect (In Progress)
+                </li>
+                <li style="position: relative; padding-left: 0.15in; margin-bottom: 0.03in;">
+                    <span style="position: absolute; left: 0; color: #2563eb;">✓</span>
+                    Certified Scrum Master (CSM)
+                </li>
+                <li style="position: relative; padding-left: 0.15in; margin-bottom: 0.03in;">
+                    <span style="position: absolute; left: 0; color: #2563eb;">✓</span>
+                    Advanced Python Programming
+                </li>
+                <li style="position: relative; padding-left: 0.15in; margin-bottom: 0.03in;">
+                    <span style="position: absolute; left: 0; color: #2563eb;">✓</span>
+                    React.js Certification
+                </li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>`;
+        }
+
+        /**
+         * Alternative: Allows downloading the resume as an HTML file.
+         */
         function downloadResumeHTML() {
-            const resumeHTML = generateResumeHTML();
+            const resumeHTML = generateResumeHTML(); // Ensure this function is defined
             const blob = new Blob([resumeHTML], { type: 'text/html' });
             const url = URL.createObjectURL(blob);
             
@@ -1348,127 +1534,148 @@
 </html>`;
         }
 
-        // 🚀 INITIALIZATION
-        function initializeWebsite() {
-            const container = document.getElementById('content-container');
-            container.innerHTML = `
-                ${renderHero()}
-                ${renderAbout()}
-                ${renderSkills()}
-                ${renderExperience()}
-                ${renderProjects()}
-                ${renderContact()}
-            `;
-            
-            initializeEventListeners();
         }
 
+        // 🚀 INITIALIZATION FUNCTIONS
+
+        /**
+         * Initializes the main website content by rendering all sections.
+         */
+        function initializeWebsite() {
+            const container = document.getElementById('content-container');
+            if (container) {
+                container.innerHTML = `
+                    ${renderHero()}
+                    ${renderAbout()}
+                    ${renderSkills()}
+                    ${renderExperience()}
+                    ${renderProjects()}
+                    ${renderContact()}
+                `;
+                initializeEventListeners(); // Setup event listeners after content is rendered
+            } else {
+                console.error("Fatal Error: Content container not found.");
+            }
+        }
+
+        /**
+         * Sets up all event listeners for the website.
+         */
         function initializeEventListeners() {
             // Theme Toggle
             const themeToggle = document.getElementById('themeToggle');
             const body = document.body;
             
-            themeToggle.addEventListener('click', () => {
-                const currentTheme = body.getAttribute('data-theme');
-                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-                
-                body.setAttribute('data-theme', newTheme);
-                themeToggle.innerHTML = newTheme === 'dark' ? 
-                    '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
-                
-                localStorage.setItem('theme', newTheme);
-            });
-            
-            // Load saved theme
-            const savedTheme = localStorage.getItem('theme') || 'light';
-            body.setAttribute('data-theme', savedTheme);
-            themeToggle.innerHTML = savedTheme === 'dark' ? 
-                '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+            if (themeToggle && body) {
+                themeToggle.addEventListener('click', () => {
+                    const currentTheme = body.getAttribute('data-theme');
+                    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                    body.setAttribute('data-theme', newTheme);
+                    themeToggle.innerHTML = newTheme === 'dark' ?
+                        '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+                    localStorage.setItem('theme', newTheme);
+                });
 
-            // Navigation - Fixed to scroll to correct sections
+                // Load saved theme
+                const savedTheme = localStorage.getItem('theme') || 'light'; // Default to light
+                body.setAttribute('data-theme', savedTheme);
+                themeToggle.innerHTML = savedTheme === 'dark' ?
+                    '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+            }
+
+            // Smooth Scrolling Navigation
             document.querySelectorAll('.nav-link').forEach(link => {
                 link.addEventListener('click', function() {
                     const targetId = this.getAttribute('data-target');
-                    const targetElement = document.getElementById(targetId);
-                    
-                    if (targetElement) {
-                        targetElement.scrollIntoView({
-                            behavior: 'smooth',
-                            block: 'start'
-                        });
+                    if (targetId) { // Ensure targetId is not null
+                        const targetElement = document.getElementById(targetId);
+                        if (targetElement) {
+                            targetElement.scrollIntoView({
+                                behavior: 'smooth',
+                                block: 'start'
+                            });
+                        }
                     }
                 });
             });
 
-            // Progress Bar
-            window.addEventListener('scroll', () => {
-                const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-                const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-                const scrolled = (winScroll / height) * 100;
-                document.getElementById('progressBar').style.width = scrolled + '%';
-            });
+            // Scroll Progress Bar
+            const progressBar = document.getElementById('progressBar');
+            if (progressBar) {
+                window.addEventListener('scroll', () => {
+                    const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+                    const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                    const scrolled = (height > 0) ? (winScroll / height) * 100 : 0; // Avoid division by zero
+                    progressBar.style.width = scrolled + '%';
+                });
+            }
 
-            // Intersection Observer for Animations
+            // Intersection Observer for Fade-in Animations on Scroll
             const observerOptions = {
                 threshold: 0.1,
                 rootMargin: '0px 0px -50px 0px'
             };
-
-            const observer = new IntersectionObserver((entries) => {
+            const observer = new IntersectionObserver((entries, obs) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         entry.target.classList.add('fade-in');
+                        // Optional: unobserve after animation to save resources
+                        // obs.unobserve(entry.target);
                     }
                 });
             }, observerOptions);
-
-            // Observe elements for animation
             document.querySelectorAll('.skill-category, .timeline-item, .project-card').forEach(el => {
                 observer.observe(el);
             });
 
-            // Contact Form
-
-            document.getElementById('contactForm').addEventListener('submit', function(e) {
-                e.preventDefault();
-                document.getElementById('formFeedback').textContent = ''; // Clear previous feedback
+            // Contact Form Submission Handler
+            const contactForm = document.getElementById('contactForm');
+            if (contactForm) {
+                contactForm.addEventListener('submit', function(event) {
+                    event.preventDefault();
+                    const feedbackDiv = document.getElementById('formFeedback');
+                    if (feedbackDiv) feedbackDiv.textContent = ''; // Clear previous feedback
 
                     emailjs.sendForm('service_wqqye6a', 'template_krk8xst', this)
-                    .then((result) => {
-                        console.log('SUCCESS!', result.status, result.text);
-                        const feedbackDiv = document.getElementById('formFeedback');
-                        feedbackDiv.textContent = 'Message sent successfully!';
-                        feedbackDiv.style.color = 'green';
-                    }, (error) => {
-                        console.log('FAILED...', error);
-                        const feedbackDiv = document.getElementById('formFeedback');
-                        feedbackDiv.textContent = 'Failed to send message. Please try again later.';
-                        feedbackDiv.style.color = 'red';
-                    });
+                        .then((result) => {
+                            console.log('EmailJS SUCCESS!', result.status, result.text);
+                            if (feedbackDiv) {
+                                feedbackDiv.textContent = 'Message sent successfully!';
+                                feedbackDiv.style.color = 'green';
+                            }
+                        }, (error) => {
+                            console.error('EmailJS FAILED...', error);
+                            if (feedbackDiv) {
+                                feedbackDiv.textContent = 'Failed to send message. Please try again later.';
+                                feedbackDiv.style.color = 'red';
+                            }
+                        });
+                    this.reset(); // Reset form fields
+                });
+            }
 
-                this.reset();
-            });
-
-            // Floating tech elements hover effects
+            // Floating Tech Elements Hover Effects
             document.querySelectorAll('.floating-tech').forEach(tech => {
                 tech.addEventListener('mouseenter', () => {
                     tech.style.transform = 'scale(1.1) translateY(-5px)';
                     tech.style.background = 'var(--primary-color)';
                     tech.style.color = 'white';
                 });
-                
                 tech.addEventListener('mouseleave', () => {
-                    tech.style.transform = '';
+                    tech.style.transform = ''; // Reset to original
                     tech.style.background = 'var(--bg-primary)';
                     tech.style.color = 'var(--text-primary)';
                 });
             });
 
             // Set current year in footer
-            document.getElementById('currentYear').textContent = new Date().getFullYear();
+            const currentYearSpan = document.getElementById('currentYear');
+            if (currentYearSpan) {
+                currentYearSpan.textContent = new Date().getFullYear();
+            }
         }
 
-        // Initialize website when DOM is loaded
+        // Initialize website when DOM is fully loaded
         document.addEventListener('DOMContentLoaded', function() {
             initializeWebsite();
         });
