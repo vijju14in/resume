@@ -15,32 +15,71 @@
         }
 
         :root {
-            --primary-color: #2563eb;
-            --secondary-color: #1e40af;
-            --accent-color: #f59e0b;
-            --text-primary: #1f2937;
-            --text-secondary: #6b7280;
-            --bg-primary: #ffffff;
-            --bg-secondary: #f8fafc;
-            --border-color: #e5e7eb;
+            /* New Palette based on Stitch Design Inspiration */
+            --primary-color: #607afb; /* Vibrant blue/purple for primary actions */
+            --secondary-color: #4f65d1; /* A slightly darker shade of primary for secondary elements if needed, or can be removed if not used */
+
+            --text-primary: #0d0f1c;   /* Very dark gray/black for main text */
+            --text-secondary: #525560; /* Medium-dark gray for less emphasized text */
+            --text-on-primary: #f8f9fc; /* Light text for on primary-color backgrounds (e.g., buttons) */
+
+            --bg-primary: #f8f9fc;     /* Light, neutral background */
+            --bg-secondary: #eff1f5;   /* Slightly darker off-white for secondary background areas */
+
+            --border-color: #d1d5db;   /* Adjusted light gray for borders, good contrast with bg-primary */
+
+            /* Button Specific (Secondary Button) */
+            --btn-secondary-bg: #e6e9f4;
+            --btn-secondary-text-color: #0d0f1c;
+
+            /* Hero Specific (Text on Hero Image Overlay) */
+            --hero-text-on-gradient: #f8f9fc; /* White/very light text for hero */
+            --hero-text-shadow: 0 1px 2px rgba(0,0,0,0.2); /* Kept from previous step, might need slight adjustment if bg image is very light */
+
+            /* Old accent color - to be phased out or replaced in component styles later */
+            /* --accent-color: #f59e0b; */ /* Commenting out, will be replaced in components */
+
+            /* Shadows - can remain as they are or be slightly adjusted if needed */
             --shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-            --hero-gradient-start: #667eea; /* Light mode gradient start */
-            --hero-gradient-end: #764ba2;   /* Light mode gradient end */
-            --hero-text-on-gradient: #FFFFFF;
-            --hero-text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+
+            /* Gradients for Hero (from previous step, may not be used if hero switches to bg image) */
+            /* These might be replaced by hero background image logic */
+            /* --hero-gradient-start: #667eea; */
+            /* --hero-gradient-end: #764ba2; */
         }
 
         [data-theme="dark"] {
-            --text-primary: #f9fafb;
-            --text-secondary: #d1d5db;
-            --bg-primary: #111827;
-            --bg-secondary: #1f2937;
-            --border-color: #374151;
-            --shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-            --hero-gradient-start: #3a3eaa; /* Dark mode gradient start - darker shade */
-            --hero-gradient-end: #5a2a82;   /* Dark mode gradient end - darker shade */
-            --hero-text-on-gradient: #f9fafb;
-            --hero-text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+            /* New Palette - Dark Theme Equivalents */
+            --primary-color: #607afb;   /* Keeping vibrant, can be adjusted if too bright for dark mode */
+            --secondary-color: #4f65d1; /* Consistent with light theme's darker shade of primary */
+
+            --text-primary: #f8f9fc;     /* Light text for dark backgrounds */
+            --text-secondary: #a0a3af;   /* Lighter gray for secondary text */
+            --text-on-primary: #f8f9fc;   /* Light text on primary-color backgrounds */
+
+            --bg-primary: #1a1c23;       /* Dark base background */
+            --bg-secondary: #242731;     /* Slightly lighter dark for secondary areas */
+
+            --border-color: #374151;     /* Darker gray for borders in dark mode */
+
+            /* Button Specific (Secondary Button) */
+            --btn-secondary-bg: #313442;
+            --btn-secondary-text-color: #f8f9fc;
+
+            /* Hero Specific (Text on Hero Image Overlay) */
+            --hero-text-on-gradient: #f8f9fc; /* White/very light text for hero */
+            --hero-text-shadow: 0 1px 2px rgba(0,0,0,0.7); /* Shadow might need to be more pronounced or different on dark overlay */
+
+            /* Old accent color - already handled in :root, just ensuring no override here unless intended */
+            /* --accent-color: ...; */
+
+            /* Shadows - can be adjusted for dark mode if needed */
+            --shadow: 0 10px 25px rgba(0, 0, 0, 0.3); /* Kept from original dark theme */
+
+            /* Gradients for Hero (from previous step, may not be used if hero switches to bg image) */
+            /* These might be replaced by hero background image logic */
+            /* --hero-gradient-start: #3a3eaa; */
+            /* --hero-gradient-end: #5a2a82; */
         }
 
         body {
@@ -880,7 +919,7 @@
                 linkedin: "https://linkedin.com/in/nilay6317", 
                 github: "https://github.com/vijju14in", 
                 description: "Passionate about building scalable applications with 8+ years of experience in Python, React, and cloud technologies. Specialized in financial services, cybersecurity automation, and data-driven solutions.",
-                profilePhotoUrl: "assets/images/nilay.jpg"
+                profilePhotoUrl: "assets/images/placeholder-avatar.png" // Added new property
             },
             
             about: {
@@ -1174,9 +1213,6 @@
                             ${project.technologies.map(tech => `<span class="tech-tag">${tech}</span>`).join('')}
                         </div>
                         <div class="project-links">
-                            ${project.github ? `<a href="${project.github}" target="_blank" class="btn btn-github">
-                                <i class="fab fa-github"></i> GitHub
-                            </a>` : ''}
                             ${project.demo ? `<a href="${project.demo}" target="_blank" class="btn btn-demo">
                                 <i class="fas fa-external-link-alt"></i> Live Demo
                             </a>` : ''}
