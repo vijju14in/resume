@@ -176,7 +176,7 @@
             min-height: 100vh;
             display: flex;
             align-items: center;
-            background-image: linear-gradient(rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.5) 100%), var(--hero-bg-image-url);
+            background-image: linear-gradient(rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.7) 100%), var(--hero-bg-image-url);
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -931,6 +931,7 @@
                 location: "Chicago, Illinois",
                 linkedin: "https://linkedin.com/in/nilay6317", 
                 github: "https://github.com/vijju14in", 
+                heroBackgroundImageUrl: "assets/images/hero-background.jpg", // Example URL
                 description: "Passionate about building scalable applications with 8+ years of experience in Python, React, and cloud technologies. Specialized in financial services, cybersecurity automation, and data-driven solutions.",
                 profilePhotoUrl: "assets/images/placeholder-avatar.png" // Added new property
             },
@@ -1708,6 +1709,16 @@
                     ${renderProjects()}
                     ${renderContact()}
                 `;
+
+                // Set Hero Background Image from CONFIG
+                const heroSection = document.getElementById('home');
+                if (heroSection && CONFIG.personal.heroBackgroundImageUrl && CONFIG.personal.heroBackgroundImageUrl.trim() !== "") {
+                    heroSection.style.setProperty('--hero-bg-image-url', `url('${CONFIG.personal.heroBackgroundImageUrl}')`);
+                } else if (heroSection) {
+                    // Fallback if no URL is provided or if it's an empty string
+                    heroSection.style.setProperty('--hero-bg-image-url', 'linear-gradient(135deg, #4f65d1, #607afb)');
+                }
+
                 initializeEventListeners(); // Setup event listeners after content is rendered
             } else {
                 console.error("Fatal Error: Content container not found.");
