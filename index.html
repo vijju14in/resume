@@ -1553,7 +1553,7 @@ body {
                                 ${Object.entries(CONFIG.skills).map(([category, skills]) => `
                                     <div class="skill-category">
                                         <div class="skill-category-title">${category}:</div>
-                                        <div class="skill-list">${skills.join(', ')}</div>
+                                        <div class="skill-list">${skills.map(skill => skill.name).join(', ')}</div>
                                     </div>
                                 `).join('')}
                             </div>
@@ -1683,7 +1683,7 @@ body {
                 ${Object.entries(CONFIG.skills).map(([category, skills]) => `
                     <div class="skill-category">
                         <div class="skill-category-title">${category}:</div>
-                        <div class="skill-list">${skills.join(', ')}</div>
+                                        <div class="skill-list">${skills.map(skill => skill.name).join(', ')}</div>
                     </div>
                 `).join('')}
             </div>
