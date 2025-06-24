@@ -949,7 +949,7 @@ body {
         }
     </style>
 </head>
-<body>
+<body data-theme="dark">
     <div class="progress-bar" id="progressBar"></div>
     
     <!-- Navigation -->
@@ -1016,7 +1016,7 @@ body {
                 github: "https://github.com/vijju14in", 
                 heroBackgroundImageUrl: "assets/images/hero-background.jpg", // Example URL
                 description: "Passionate about building scalable applications with 8+ years of experience in Python, React, and cloud technologies. Specialized in financial services, cybersecurity automation, and data-driven solutions.",
-                profilePhotoUrl: "assets/images/nilay.jpg.jpg" // Added new property
+                profilePhotoUrl: "assets/images/placeholder-avatar.png" // Added new property
             },
             
             about: {
@@ -1237,7 +1237,7 @@ body {
                 return `
                     <div class="skill-category">
                         <h3><i class="fas fa-${getSkillIcon(category)}"></i> ${category}</h3>
-                        <div class="skill-pills-list"> 
+                        <div class="skill-pills-list"> {/* MODIFIED: Class name changed */}
                             ${skill_tags_html}
                         </div>
                     </div>
@@ -1821,7 +1821,7 @@ body {
                 });
 
                 // Load saved theme
-                const savedTheme = localStorage.getItem('theme') || 'light'; // Default to light
+                const savedTheme = localStorage.getItem('theme') || 'dark'; // Default to dark
                 body.setAttribute('data-theme', savedTheme);
                 themeToggle.innerHTML = savedTheme === 'dark' ?
                     '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
